@@ -1,0 +1,52 @@
+{
+    "P001": {
+        "name": "ujjawal",
+        "city": "rohtak",
+        "age": 25,
+        "gender": "male",
+        "height": 5.9,
+        "weight": 70,
+        "bmi": 25.0,
+        "verdict": "obese"
+    },
+    "P002": {
+        "name": "priya",
+        "city": "rohtak",
+        "age": 30,
+        "gender": "female",
+        "height": 5.5,
+        "weight": 60,
+        "bmi": 22.0,
+        "verdict": "normal"
+    },
+    "P003": {
+        "name": "rahul",
+        "city": "rohtak",
+        "age": 35,
+        "gender": "male",
+        "height": 6.0,
+        "weight": 80,
+        "bmi": 26.7,
+        "verdict": "obese"
+    },
+    "P004": {
+        "name": "amit",
+        "city": "delhi",
+        "age": 28,
+        "gender": "male",
+        "height": 5.8,
+        "weight": 75,
+        "bmi": 25.8,
+        "verdict": "overweight"
+    },
+    "P005": {
+        "name": "neha",
+        "city": "gurgaon",
+        "age": 26,
+        "gender": "female",
+        "height": 5.4,
+        "weight": 55,
+        "bmi": 21.0,
+        "verdict": "normal"
+    }
+}

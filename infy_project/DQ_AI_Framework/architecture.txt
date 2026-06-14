@@ -1,0 +1,88 @@
+## Architecture Overview
+
+```
+┌─────────────────────────────────────────────────────────────────────┐
+│                        FastAPI Gateway                               │
+│  /upload  /analyze  /validate  /report  /rules  /health             │
+└──────┬──────────┬──────────┬──────────┬──────────┬──────────────────┘
+       │          │          │          │          │
+       ▼          ▼          ▼          ▼          ▼
+┌──────────┐ ┌─────────┐ ┌─────────┐ ┌─────────┐ ┌─────────────────┐
+│  Data    │ │ Gemini  │ │  Rule   │ │ Report  │ │  Alert Engine   │
+│  Loader  │ │ AI      │ │ Engine  │ │ Builder │ │ (Background)    │
+│ (PySpark)│ │ Suggest │ │(PySpark)│ │ (JSON)  │ │  SNS/Email      │
+└──────────┘ └─────────┘ └─────────┘ └─────────┘ └─────────────────┘
+       │          │          │          │          │
+       ▼          ▼          ▼          ▼          ▼
+┌─────────────────────────────────────────────────────────────────────┐
+│                     Shared State / Storage                           │
+│   datasets{}   rules{}   results{}   anomalies{}   audit_trail[]   │
+└─────────────────────────────────────────────────────────────────────┘
+```
+
+## Complete Project Structure
+
+```
+dq_framework/
+├── main.py                    # FastAPI application entry point
+├── config.py                  # Configuration and settings
+├── requirements.txt           # Dependencies
+├── docker-compose.yml         # Container orchestration
+├── Dockerfile                 # Container image
+│
+├── core/
+│   ├── __init__.py
+│   ├── spark_manager.py       # PySpark session management
+│   ├── data_loader.py         # Data ingestion module
+│   └── exceptions.py          # Custom exceptions
+│
+├── ai/
+│   ├── __init__.py
+│   ├── gemini_client.py       # Gemini API integration
+│   ├── rule_suggester.py      # AI-powered rule suggestion engine
+│   └── prompts.py             # Prompt templates
+│
+├── engine/
+│   ├── __init__.py
+│   ├── rule_parser.py         # JSON rule parser
+│   ├── rule_executor.py       # PySpark-based rule execution
+│   ├── validators.py          # Individual validation functions
+│   └── conditional_logic.py   # Complex business logic handler
+│
+├── reporting/
+│   ├── __init__.py
+│   ├── report_builder.py      # Structured report generation
+│   ├── anomaly_capture.py     # Failed record audit trail
+│   └── dashboard_data.py      # Dashboard-ready data
+│
+├── alerts/
+│   ├── __init__.py
+│   ├── alert_engine.py        # Background alerting system
+│   ├── email_sender.py        # Email notification
+│   └── sns_sender.py          # AWS SNS notification
+│
+├── models/
+│   ├── __init__.py
+│   ├── schemas.py             # Pydantic models
+│   └── enums.py               # Enumerations
+│
+├── api/
+│   ├── __init__.py
+│   ├── routes_data.py         # Data upload/management routes
+│   ├── routes_analysis.py     # AI analysis routes
+│   ├── routes_validation.py   # Validation execution routes
+│   ├── routes_reports.py      # Report routes
+│   └── routes_rules.py        # Rule management routes
+│
+├── tests/
+│   ├── __init__.py
+│   ├── test_rule_executor.py
+│   ├── test_ai_suggester.py
+│   ├── test_api.py
+│   └── sample_data/
+│       └── employees.csv
+│
+└── docs/
+    ├── API_REFERENCE.md
+    └── ARCHITECTURE.md
+```

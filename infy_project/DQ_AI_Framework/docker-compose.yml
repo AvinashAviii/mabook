@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  dq-framework:
+    build: .
+    ports:
+      - "8000:8000"
+    environment:
+      - GEMINI_API_KEY=AQ.Ab8RN6IuYnoH535sNV6oao9RMBhGvcBIUecIalfrPznNq0I9YA
+      - SMTP_HOST=${SMTP_HOST:-smtp.aviavinash3337@gmail.com}
+      - SMTP_PORT=${SMTP_PORT:-587}
+      - SMTP_USER=${SMTP_USER:-}
+      - SMTP_PASSWORD=${SMTP_PASSWORD:-}
+      - DEBUG=true
+    volumes:
+      - ./uploads:/app/uploads
+      - ./reports:/app/reports
+    restart: unless-stopped

@@ -1,0 +1,7 @@
+{
+    "module": "validation",
+    "env": "local",
+    "dbName": "parts_db",
+    "tableName": "battery_table",
+    "rejectCaptureFlag": "Y"
+}
